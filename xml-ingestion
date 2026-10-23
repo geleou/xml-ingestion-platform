@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cli_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+if [[ ! -f "$cli_root/target/classes/XmlIngestionCli.class" || ! -d "$cli_root/target/dependency" ]]; then
+    echo "Build first: mvn -f \"$cli_root/pom.xml\" -Dmaven.repo.local=\"$cli_root/.cache/m2\" package" >&2
+    exit 2
+fi
+# Preserve the caller's working directory so relative input/output paths work.
+export DB_PASSWORD_FILE="${DB_PASSWORD_FILE:-$cli_root/secrets/db_password}"
+exec java -Xmx"${JAVA_HEAP:-512m}" -cp "$cli_root/target/classes:$cli_root/target/dependency/*" XmlIngestionCli "$@"

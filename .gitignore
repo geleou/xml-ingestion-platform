@@ -1,0 +1,5 @@
+/target/
+/.cache/
+/.work/
+/.env
+/secrets/

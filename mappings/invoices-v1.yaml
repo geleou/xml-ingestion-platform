@@ -1,0 +1,42 @@
+# Explicit XSD -> database bindings. Empty targets must be resolved before ingestion.
+# Generated matches are suggestions; review row relationships and meaning.
+format: 1
+id: invoices-v1
+adapter: invoices-v1
+database_schema: ingestion
+xsd_sha256: 51d037af02f16a7808ca9114b2349093018af117a84029427f1f5859de749eaa
+database_sha256: 79a1f5fbdf90f0107c07433590911b1401d59ee6146b4a213df00b53fdce82c8
+fields:
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}InvoiceId
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}positiveInteger'
+  targets:
+  - ingestion.invoices.invoice_id
+  - ingestion.invoice_lines.invoice_id
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}Classification
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}string'
+  targets:
+  - ingestion.invoices.classification
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}Customer/{urn:xml-ingestion:samples:invoices:v1}Name
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}token'
+  targets:
+  - ingestion.invoices.customer_name
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}Customer/{urn:xml-ingestion:samples:invoices:v1}Country
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}string'
+  targets:
+  - ingestion.invoices.country
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}Lines/{urn:xml-ingestion:samples:invoices:v1}Line/{urn:xml-ingestion:samples:invoices:v1}Sku
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}token'
+  targets:
+  - ingestion.invoice_lines.sku
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}Lines/{urn:xml-ingestion:samples:invoices:v1}Line/{urn:xml-ingestion:samples:invoices:v1}Quantity
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}positiveInteger'
+  targets:
+  - ingestion.invoice_lines.quantity
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/{urn:xml-ingestion:samples:invoices:v1}Invoice/{urn:xml-ingestion:samples:invoices:v1}Lines/{urn:xml-ingestion:samples:invoices:v1}Line/{urn:xml-ingestion:samples:invoices:v1}UnitPrice
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}decimal'
+  targets:
+  - ingestion.invoice_lines.unit_price
+- source: /{urn:xml-ingestion:samples:invoices:v1}Invoices/@{}version
+  xsd_type: '{http://www.w3.org/2001/XMLSchema}positiveInteger'
+  targets:
+  - ingestion.batches.document_version

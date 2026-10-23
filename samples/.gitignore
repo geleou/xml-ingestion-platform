@@ -1,0 +1,5 @@
+# Keep large generated data out of source control; regenerate with generate.py.
+/*/*.xml
+/*/*.xsd
+/manifest.json
+*.class
